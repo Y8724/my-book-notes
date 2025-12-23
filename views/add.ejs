@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Add Book</h1>
+
+    <form action="/add" method="POST">
+        <input name="title" placeholder="Tile" required><br>
+        <input name="author" placeholder="Author"><br>
+        <input name="isbn" placeholder="ISBN"><br>
+        <textarea name="description" placeholder="What is this book about?" rows="6"></textarea><br>
+        <button type="submit">Add Book</button>
+    </form>
+
+    <a href="/">← Back</a>
+</body>
+</html>

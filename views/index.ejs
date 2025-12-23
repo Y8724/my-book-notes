@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Book Notes</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    
+    <header>
+        <h1>Yanay Book List</h1>
+        <% if (admin) { %>
+            <div class="admin-actions">
+                <a href="/add" class="add-book-btn">+ Add Book</a>
+            </div>
+        <% } %>
+    </header>
+    
+
+    <!-- Add book -->
+     <main class="books">
+        <% books.forEach(book => { %>
+            <div class="book-card">
+                <!-- Cover -->
+                 <img src="<%= book.cover_url || '/no-cover.png' %>" alt="Book cover" class="book-cover">
+                 
+                 <!-- Content -->
+                  <div class="book-info">
+                    <a href="/book/<%= book.id %>">
+                        <h2><%= book.title %></h2>
+                    </a>
+                    <p class="author"><%= book.author %></p>
+                    <p class="isbn">ISBN: <%= book.isbn %></p>
+
+                    <% if (book.description) { %>
+                        <p class="description"><%= book.description %></p>
+                   <% } %>
+                  
+                  </div>
+                </div>
+       <% }) %>
+     </main>
+
+</body>
+</html>

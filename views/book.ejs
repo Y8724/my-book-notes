@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= book.title %></title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <article class="book-page">
+        <div class="book-layout">
+            <!-- left cover-->
+            <div class="book-cover">
+                <img src="<%= book.cover_url || '/no-cover.png' %>" class="cover-large" alt="Book cover">
+            </div>
+            
+            <!-- right cover-->
+            <div class="book-content">
+                <h1 class="book-title"><%= book.title %></h1>
+
+                <p class="author"><strong>Author:</strong><%= book.author %></p>
+                <p class="isbn"><strong>ISBN:</strong><%= book.isbn %></p>
+
+                <% if (book.description) { %>
+                    <p class="description"><%= book.description %></p>
+                <% } %>
+            
+
+            <!-- notes -->
+             <section class="notes">
+                <h3>My Notes</h3>
+
+                <% if (book.notes) { %>
+                    <% book.notes.split(/\n\s*\n/).forEach(paragraph => { %>
+                        <p class="notes-text"><%= paragraph.trim() %></p>
+                  <% }) %>
+                <% } else { %>
+                    <p class="notes-text muted">No notes yet></p>
+                <% } %>
+
+                <% if (admin) { %>
+                    <form method="POST" action="/book/<%= book.id %>/notes?admin=<%= adminToken %>">
+                    <textarea name="notes"><%= book.notes %></textarea>
+                    <button type="submit">Save notes</button>
+                    </form>
+                <% } %>
+            </section>
+            
+            
+            <% if (admin) { %>
+                <section class="admin-panel">
+                    <h3>Edit book</h3>
+
+                    <form method="POST" action="/book/<%= book.id %>/edit?admin=<%= adminToken %>">
+                        <input name="title" value="<%= book.title %>">
+                        <input name="author" value="<%= book.author %>">
+                        <input name="isbn" value="<%= book.isbn %>">
+
+                        <textarea name="description"><%= book.description %></textarea>
+                        <textarea name="notes"><%= book.notes %></textarea>
+
+                        <button type="submit">Save changes</button>
+                    </form>
+
+                    <form method="POST" action="/book/<%= book.id %>/delete?admin=<%= adminToken %>" onsubmit="return confirm('Delete this book?')">
+                        <button type="submit">Delete book</button>
+                    </form>
+                </section>
+            <% } %>     
+
+            <a href="/" class="back-link">← Back to list</a>
+            </div>
+        </div>
+    </article>
+</body>
+</html>
