@@ -5,8 +5,6 @@ import dotenv from "dotenv";
 import axios from "axios";
 
 const app = express();
-const port = 3000;
-
 
 if (process.env.NODE_NEW !== "production") {
     const dotenv = await import("dotenv");
@@ -201,6 +199,7 @@ app.post("/book/:id/delete", async (req, res) => {
     }
 });
 
-app.listen(port, () =>{
-    console.log(`Server runningon port ${port}`);
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log("Server running on port", PORT);
+});
