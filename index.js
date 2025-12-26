@@ -7,7 +7,12 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 
-dotenv.config();
+
+if (process.env.NODE_NEW !== "production") {
+    const dotenv = await import("dotenv");
+    dotenv.config();
+}
+
 
 const isAdmin = (req) => {
     return req.query.admin === process.env.ADMIN_TOKEN;
@@ -17,11 +22,11 @@ app.set("view engine", "ejs");
 
 
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "booklist",
-  password: "Yanatalie1220",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 db.connect();
 
